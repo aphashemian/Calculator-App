@@ -1,48 +1,69 @@
-
+// String, display.
 let current = "";
-let valueCurrent = 0;
 let currentEl = document.getElementById("display-el");
-let state = "NONE";
+
+//"Non-string number values"
+let valueCurrent = 0;
+let numberSeries = [];
+let isNewValue = false;
+var operation = "NONE";
 
 function pressNumber(key)
 {
-  current+= key;
-  currentEl.textContent += key;
+  if (isNewValue)
+  {
+    current = "";
+    currentEl.textContent = current;
+    isNewValue = false;
+  }
+
+  current += String(key);
+  currentEl.textContent = current;
   valueCurrent = parseInt(current);
-  console.log(key);
+  console.log(valueCurrent);
 }
 
 function pressOperation(key)
 {
   switch (key)
   {
-    case "+": state = "ADD";
+    case "+": operation = "ADD";
+              console.log("add");
               break;
-    case "-": state = "SUB";
+    case "-": operation = "SUB";
               break;
-    case "*": state = "MUL";
+    case "*": operation = "MUL";
               break;
-    case "/": state = "DIV";
+    case "/": operation = "DIV";
               break;
   }
+
+  numberSeries.push(valueCurrent);
+  isNewValue = true;
 
 }
 
 function solve()
 {
-  switch(state)
+  numberSeries.push(valueCurrent);
+  let operandOne = numberSeries[numberSeries.length-2];
+  let operandTwo = numberSeries[numberSeries.length-1];
+  switch(operation)
   {
-    case "ADD":
-    case "SUB":
-    case "MUL":
-    case "DIV": 
+    case "ADD": soln = parseInt(operandOne) + parseInt(operandTwo);
+                break;
+    case "SUB": soln = parseInt(operandOne) - parseInt(operandTwo);
+                break;
+    case "MUL": soln = parseInt(operandOne) * parseInt(operandTwo);
+                break;
+    case "DIV": // check for div by zero.
+                break;
   }
-}
-function save()
-{
-  let countStr = count + " - ";
-  pastNumber.textContent += countStr;
-  console.log(count);
-  count = 0;
-  countEl.textContent = count;
+  operation = "NONE";
+  console.log(soln);
+
+  valueCurrent = parseInt(soln);
+  numberSeries.push(valueCurrent);
+  current = String(soln);
+  currentEl.textContent = current;
 }
