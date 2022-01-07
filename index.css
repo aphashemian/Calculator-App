@@ -5,12 +5,13 @@ body {
   font-weight:bolder;
   text-align: center;
   color: white;
+  max-width: 600px;
 
 }
 
 .display {
   background-color: #668677;
-  width: 315px;
+  width: 400px;
   font-size: 20px;
   font-display: auto;
   margin-top: 3px;
@@ -52,11 +53,10 @@ button
   display: flex;
 }
 
-.grid
+.container
 {
   display:grid;
 }
-
 
 #increment-btn {
   background-color:darkred;
